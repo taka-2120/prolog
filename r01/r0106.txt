@@ -1,0 +1,2 @@
+回答例: grandfather(X,Y) :- father(X,Z), parent(Z,Y).
+論理的意味: XがZの父親かつ、ZがYの親であるならば、XはYの祖父である。
