@@ -1,0 +1,30 @@
+mymem(X,[X|_]).
+mymem(X,[_|Xs]) :- mymem(X,Xs).
+
+has_duplication([A|L]) :- mymem(A,L).
+has_duplication([_|L]) :- has_duplication(L).
+
+
+(i) 各節の論理的意味
+mymem 第1節: リスト Y の先頭要素 X であるならば、 X はリスト Y の要素である。
+mymem 第2節: リスト Y の先頭要素 X でないならば、 X はリスト Y の要素ではない。 
+
+has_duplication 第1節: リスト L の先頭要素が A が尾部 L の要素に含まれているならば、重複要素がある。
+has_duplication 第2節: リスト L の先頭要素が A が尾部 L の要素に含まれていないならば、重複要素はない。
+
+(ii) has_duplication の実行課程
+
+has_duplication([a, b, a]) を実行すると、
+has_duplication の第1節と単一化しようとすると A = a, L = [b, a] となり、 mymem(a, [b, a]) が呼び出される。
+
+  mymem(a, [b, a]) を実行すると、
+  まず、 mymem の第1節と単一化しようとするが失敗する。
+  次に mymem の第2節と単一化しようとすると成功して、 X = a , Xs = [a] となる。
+  その節のボディゴール mymem(a, [a]) を呼び出す。
+
+    mymem(a, [a]) を実行すると、
+    mymem の第1節と単一化しようとすると成功して、 true となる。
+
+  この結果から、 mymem(a, [b, a]) は true となる。
+
+この結果から、 has_duplication([a, b, a]) は true となる。
