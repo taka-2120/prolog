@@ -1,7 +1,7 @@
 (i) 各節の論理的意味
 pos_neg([], [], []).
-pos_neg([X|X1], [X|PL], NL) :- H > 0, pos_neg(X1, PL, NL).
-pos_neg([X|X1], PL, [X|NL]) :- H < 0, pos_neg(X1, PL, NL).
+pos_neg([X|X1], [X|PL], NL) :- X > 0, pos_neg(X1, PL, NL).
+pos_neg([X|X1], PL, [X|NL]) :- X < 0, pos_neg(X1, PL, NL).
 pos_neg([_|X1], PL, NL) :- pos_neg(X1, PL, NL).
 
 第1節: 空リストの正の整数リストと負の整数リストは空リストである。
@@ -17,8 +17,8 @@ pos_neg([3,-10], A, B) を実行すると、
 
   次に、pos_neg([-10], PL', NL) を実行すると、
   まず、 pos_neg の第1節と単一化しようとするが失敗する。
-  次に、 pos_neg の第2節と単一化しようとするが失敗する。
-  次に、 pos_neg の第3節と単一化しようとすると成功して、 X' = -10, PL' = [], NL = [-10|NL'] となる。
+  次に、 pos_neg の第2節と単一化しようとするが失敗するため、強制的にバックトラックをかける。
+  そうすると、 pos_neg の第3節と単一化しようとすると成功して、 X' = -10, PL' = [], NL = [-10|NL'] となる。
   この節のボディゴール pos_neg([], PL', NL') を呼び出す。
 
     次に、pos_neg([], PL', NL') を実行すると、
